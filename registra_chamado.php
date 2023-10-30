@@ -6,6 +6,7 @@
     $descricao = str_replace('#', '-', $_POST['descricao']);
 
     //implode('#', $_POST);
+    $implode_texto = implode('#',[$titulo, $categoria, $descricao]);
 
     $texto = $titulo . '#' . $categoria . '#' . $descricao . PHP_EOL;
 
