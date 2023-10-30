@@ -1,14 +1,17 @@
 <?php
 
+    session_start();
+
     //montagem do texto
     $titulo = str_replace('#', '-', $_POST['titulo']);
     $categoria = str_replace('#', '-', $_POST['categoria']);
     $descricao = str_replace('#', '-', $_POST['descricao']);
 
     //implode('#', $_POST);
-    $implode_texto = implode('#',[$titulo, $categoria, $descricao]);
+    $implode_texto = implode('#', [$_SESSION['id'], $titulo, $categoria, $descricao]);
 
-    $texto = $titulo . '#' . $categoria . '#' . $descricao . PHP_EOL;
+
+    $texto = $_SESSION['id'] . '#' . $titulo . '#' . $categoria . '#' . $descricao . PHP_EOL;
 
     //abrindo o arquivo
     $arquivo = fopen('arquivo.hd', 'a');
