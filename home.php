@@ -1,3 +1,6 @@
+<?php require_once "validador_acesso.php"; ?>
+
+
 <html>
   <head>
     <meta charset="utf-8" />
@@ -34,10 +37,14 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-6 d-flex justify-content-center">
-                  <img src="formulario_abrir_chamado.png" width="70" height="70">
+                  <a href="abrir_chamado.php">
+                    <img src="formulario_abrir_chamado.png" width="70" height="70">
+                  </a>
                 </div>
                 <div class="col-6 d-flex justify-content-center">
-                  <img src="formulario_consultar_chamado.png" width="70" height="70">
+                  <a href="consultar_chamado.php">
+                    <img src="formulario_consultar_chamado.png" width="70" height="70">
+                  </a>
                 </div>
               </div>
             </div>
