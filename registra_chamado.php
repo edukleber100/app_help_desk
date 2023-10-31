@@ -3,25 +3,25 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  // Verifique se uma imagem foi enviada
+  // Verifique se a imagem foi enviada
   if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
     $imagem_tmp = $_FILES['imagem']['tmp_name'];
     $nome_imagem = $_FILES['imagem']['name'];
 
-    // Especifique o diretório de destino
+    // diretório de destino
     $diretorio_destino = 'img/';
 
-    // Verifique se o diretório de destino existe
+    // Aqui verifica se o diretório de destino existe
     if (!is_dir($diretorio_destino)) {
       mkdir($diretorio_destino, 0777, true);
     }
 
-    // Mova a imagem para o diretório específico
+    // Move a imagem pra o diretório específico
     $caminho_destino = $diretorio_destino . $nome_imagem;
     if (move_uploaded_file($imagem_tmp, $caminho_destino)) {
       // A imagem foi carregada com sucesso
     } else {
-      // Trate o erro de carregamento da imagem, se necessário
+      // Trata o erro de carregamento da imagem, se precisar
     }
   }
 
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Fechando o arquivo
   fclose($arquivo);
 
-  // Redirecionando de volta para a página de abertura de chamado
+  // Redirecionan de volta para a página de abertura de chamado
   header('Location: abrir_chamado.php');
 }
 ?>
