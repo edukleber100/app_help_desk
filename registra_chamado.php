@@ -1,29 +1,48 @@
 <?php
 
-    session_start();
+session_start();
 
-    //montagem do texto
-    $titulo = str_replace('#', '-', $_POST['titulo']);
-    $categoria = str_replace('#', '-', $_POST['categoria']);
-    $descricao = str_replace('#', '-', $_POST['descricao']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Verifique se uma imagem foi enviada
+  if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+    $imagem_tmp = $_FILES['imagem']['tmp_name'];
+    $nome_imagem = $_FILES['imagem']['name'];
 
-    //implode('#', $_POST);
-    $implode_texto = implode('#', [$_SESSION['id'], $titulo, $categoria, $descricao]);
+    // Especifique o diretório de destino
+    $diretorio_destino = 'img/';
 
+    // Verifique se o diretório de destino existe
+    if (!is_dir($diretorio_destino)) {
+      mkdir($diretorio_destino, 0777, true);
+    }
 
-    $texto = $_SESSION['id'] . '#' . $titulo . '#' . $categoria . '#' . $descricao . PHP_EOL;
+    // Mova a imagem para o diretório específico
+    $caminho_destino = $diretorio_destino . $nome_imagem;
+    if (move_uploaded_file($imagem_tmp, $caminho_destino)) {
+      // A imagem foi carregada com sucesso
+    } else {
+      // Trate o erro de carregamento da imagem, se necessário
+    }
+  }
 
-    //abrindo o arquivo
-    $arquivo = fopen('../../app_help_desk/arquivo.hd', 'a');
+  // Montagem do texto
+  $titulo = str_replace('#', '-', $_POST['titulo']);
+  $categoria = str_replace('#', '-', $_POST['categoria']);
+  $descricao = str_replace('#', '-', $_POST['descricao']);
 
-    
-    //escrevendo o texto
-    fwrite($arquivo, $texto);
-    //fechando o arquivo
-    fclose($arquivo);
+  // Texto a ser armazenado
+  $texto = $_SESSION['id'] . '#' . $titulo . '#' . $categoria . '#' . $descricao . '#' . $nome_imagem . PHP_EOL;
 
-    //echo $texto;
+  // Abrindo o arquivo
+  $arquivo = fopen('../../app_help_desk/arquivo.hd', 'a');
 
-    header('Location: abrir_chamado.php');
+  // Escrevendo o texto
+  fwrite($arquivo, $texto);
 
+  // Fechando o arquivo
+  fclose($arquivo);
+
+  // Redirecionando de volta para a página de abertura de chamado
+  header('Location: abrir_chamado.php');
+}
 ?>

@@ -74,6 +74,9 @@
                   <h5 class="card-title"><?= $chamado_dados[1] ?></h5>
                   <h6 class="card-subtitle mb-2 text-muted"><?= $chamado_dados[2] ?></h6>
                   <p class="card-text"><?= $chamado_dados[3] ?></p>
+                  <?php if (isset($chamado_dados[4])) : ?>
+                    <img src="img/<?= $chamado_dados[4] ?>" alt="Imagem do Chamado" width="400" height="250">
+                  <?php endif; ?>
                 </div>
               </div> 
               <?php } ?>
